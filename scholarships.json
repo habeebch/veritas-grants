@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "title": "Harvard Academy Scholars Program",
+    "univ": "Harvard University • Cambridge, USA",
+    "country": "USA",
+    "degrees": ["PhD"],
+    "coverage": "$75,000/yr + Health & Travel",
+    "type": "Fully Funded",
+    "deadline": "October 31, 2026",
+    "match": "100%",
+    "link": "https://academy.wcfia.harvard.edu/"
+  },
+  {
+    "id": 2,
+    "title": "Gates Cambridge Scholarship",
+    "univ": "University of Cambridge • Cambridge, UK",
+    "country": "UK",
+    "degrees": ["Master", "PhD"],
+    "coverage": "100% Tuition + £20,000 Stipend",
+    "type": "Fully Funded",
+    "deadline": "December 05, 2026",
+    "match": "98%",
+    "link": "https://www.gatescambridge.org/"
+  },
+  {
+    "id": 3,
+    "title": "DAAD EPOS Development Scholarship",
+    "univ": "Public Universities • Germany",
+    "country": "Germany",
+    "degrees": ["Master"],
+    "coverage": "Free Tuition + €934/mo Stipend",
+    "type": "Fully Funded",
+    "deadline": "November 15, 2026",
+    "match": "95%",
+    "link": "https://www.daad.de/"
+  }
+]

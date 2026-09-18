@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Global Scholarship Portal | Veritas Grants</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .serif-title { font-family: 'Playfair Display', serif; }
+    .gradient-success { background: linear-gradient(135deg, #059669 0%, #0D9488 100%); }
+    .gradient-harvard { background: linear-gradient(135deg, #4C0519 0%, #0F172A 100%); }
+    .glass-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); border: 1px solid rgba(226, 232, 240, 0.8); }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen">
+
+  <!-- Header -->
+  <header class="gradient-harvard text-white sticky top-0 z-50 shadow-md">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center font-bold text-slate-900 text-xl shadow-lg shadow-amber-500/20">🎓</div>
+        <div>
+          <h1 class="font-extrabold text-lg tracking-tight">Veritas Grants</h1>
+          <p class="text-xs text-rose-200/80">Open Academic Scholarship Index</p>
+        </div>
+      </div>
+      <div class="flex items-center space-x-4 text-xs font-semibold">
+        <span class="inline-flex items-center px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping mr-2"></span>
+          No Login Required • Open Access
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto px-6 py-8">
+    
+    <!-- Hero Title -->
+    <div class="mb-8 text-center max-w-3xl mx-auto">
+      <h2 class="serif-title text-4xl sm:text-5xl font-bold text-slate-900 mb-3 tracking-tight">
+        Accelerate Your <span class="bg-clip-text text-transparent gradient-success">Global Scholar</span> Journey
+      </h2>
+      <p class="text-slate-600 text-base">
+        Filter fully-funded international opportunities live by country, degree level, and coverage.
+      </p>
+    </div>
+
+    <!-- Interactive Filter Panel -->
+    <div class="glass-card rounded-2xl p-6 shadow-xl mb-10 border border-slate-200/80">
+      
+      <!-- Search Input -->
+      <div class="mb-6">
+        <div class="relative">
+          <input type="text" id="searchInput" oninput="applyFilters()" placeholder="Search by scholarship name, field of study, or university..." class="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm shadow-sm bg-white">
+          <svg class="w-5 h-5 absolute left-4 top-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        </div>
+      </div>
+
+      <!-- Filters Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Country Select -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Target Destination</label>
+          <select id="countryFilter" onchange="applyFilters()" class="w-full py-2.5 px-3 bg-white border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none font-medium text-slate-700">
+            <option value="ALL">🌐 All Countries (Global)</option>
+            <option value="USA">🇺🇸 United States</option>
+            <option value="UK">🇬🇧 United Kingdom</option>
+            <option value="Germany">🇩🇪 Germany</option>
+            <option value="Canada">🇨🇦 Canada</option>
+            <option value="Australia">🇦🇺 Australia</option>
+          </select>
+        </div>
+
+        <!-- Degree Level Buttons -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Degree Level</label>
+          <div class="flex flex-wrap gap-1.5" id="degreeGroup">
+            <button onclick="toggleDegree(this, 'ALL')" class="degree-btn active-degree px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white shadow-sm">All Levels</button>
+            <button onclick="toggleDegree(this, 'Bachelor')" class="degree-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200">Bachelor's</button>
+            <button onclick="toggleDegree(this, 'Master')" class="degree-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200">Master's</button>
+            <button onclick="toggleDegree(this, 'PhD')" class="degree-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200">PhD / Doctoral</button>
+          </div>
+        </div>
+
+        <!-- Funding Type Checkboxes -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Funding Coverage</label>
+          <div class="flex items-center space-x-4 pt-1">
+            <label class="inline-flex items-center text-sm font-semibold text-slate-700 cursor-pointer">
+              <input type="checkbox" id="fullyFundedCheck" onchange="applyFilters()" checked class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300">
+              <span class="ml-2">100% Fully Funded</span>
+            </label>
+            <label class="inline-flex items-center text-sm font-semibold text-slate-600 cursor-pointer">
+              <input type="checkbox" id="partialCheck" onchange="applyFilters()" checked class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300">
+              <span class="ml-2">Partial Waiver</span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Results Header -->
+    <div class="flex justify-between items-center mb-6">
+      <h3 class="text-xl font-bold text-slate-900">
+        Available Scholarships <span id="countLabel" class="text-slate-400 text-base font-normal">( Showing 0 )</span>
+      </h3>
+    </div>
+
+    <!-- Dynamic Card Grid -->
+    <div id="resultsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+  </main>
+
+  <script>
+    // Database Array
+    const scholarships = [
+      {
+        id: 1,
+        title: "Harvard Academy Scholars Program",
+        univ: "Harvard University • Cambridge, USA",
+        country: "USA",
+        degrees: ["PhD"],
+        coverage: "$75,000/yr + Health & Travel",
+        type: "Fully Funded",
+        deadline: "October 31, 2026",
+        match: "100%",
+        link: "https://academy.wcfia.harvard.edu/"
+      },
+      {
+        id: 2,
+        title: "Gates Cambridge Scholarship",
+        univ: "University of Cambridge • Cambridge, UK",
+        country: "UK",
+        degrees: ["Master", "PhD"],
+        coverage: "100% Tuition + £20,000 Stipend",
+        type: "Fully Funded",
+        deadline: "December 05, 2026",
+        match: "98%",
+        link: "https://www.gatescambridge.org/"
+      },
+      {
+        id: 3,
+        title: "DAAD EPOS Development Scholarship",
+        univ: "Public Universities • Germany",
+        country: "Germany",
+        degrees: ["Master"],
+        coverage: "Free Tuition + €934/mo Stipend",
+        type: "Fully Funded",
+        deadline: "November 15, 2026",
+        match: "95%",
+        link: "https://www me.daad.de/"
+      },
+      {
+        id: 4,
+        title: "Lester B. Pearson International Scholarship",
+        univ: "University of Toronto • Toronto, Canada",
+        country: "Canada",
+        degrees: ["Bachelor"],
+        coverage: "Tuition, Books, & Full Residence Support",
+        type: "Fully Funded",
+        deadline: "January 15, 2027",
+        match: "92%",
+        link: "https://future.utoronto.ca/"
+      },
+      {
+        id: 5,
+        title: "Australia Awards International Scholarship",
+        univ: "Participating Universities • Australia",
+        country: "Australia",
+        degrees: ["Master", "PhD"],
+        coverage: "Full Tuition + Airfare + Living Allowance",
+        type: "Fully Funded",
+        deadline: "April 30, 2027",
+        match: "90%",
+        link: "https://www.dfat.gov.au/"
+      },
+      {
+        id: 6,
+        title: "Rhodes Scholarship Oxford",
+        univ: "University of Oxford • Oxford, UK",
+        country: "UK",
+        degrees: ["Master", "PhD"],
+        coverage: "Full University Fees + £18,180 Stipend",
+        type: "Fully Funded",
+        deadline: "October 02, 2026",
+        match: "99%",
+        link: "https://www.rhodeshouse.ox.ac.uk/"
+      },
+      {
+        id: 7,
+        title: "Fulbright Foreign Student Program",
+        univ: "Partner Universities • USA",
+        country: "USA",
+        degrees: ["Master", "PhD"],
+        coverage: "Full Tuition, Living Stipend & Airfare",
+        type: "Fully Funded",
+        deadline: "October 11, 2026",
+        match: "96%",
+        link: "https://fulbrightonline.org/"
+      },
+      {
+        id: 8,
+        title: "University of Waterloo Entrance Scholarship",
+        univ: "University of Waterloo • Ontario, Canada",
+        country: "Canada",
+        degrees: ["Bachelor"],
+        coverage: "$10,000 Partial Academic Tuition Waiver",
+        type: "Partial Waiver",
+        deadline: "February 01, 2027",
+        match: "85%",
+        link: "https://uwaterloo.ca/"
+      }
+    ];
+
+    let selectedDegree = "ALL";
+
+    function toggleDegree(btn, degree) {
+      document.querySelectorAll('.degree-btn').forEach(b => {
+        b.classList.remove('bg-emerald-600', 'text-white', 'shadow-sm');
+        b.classList.add('bg-slate-100', 'text-slate-600');
+      });
+      btn.classList.remove('bg-slate-100', 'text-slate-600');
+      btn.classList.add('bg-emerald-600', 'text-white', 'shadow-sm');
+      selectedDegree = degree;
+      applyFilters();
+    }
+
+    function applyFilters() {
+      const searchVal = document.getElementById('searchInput').value.toLowerCase();
+      const selectedCountry = document.getElementById('countryFilter').value;
+      const isFullyFundedChecked = document.getElementById('fullyFundedCheck').checked;
+      const isPartialChecked = document.getElementById('partialCheck').checked;
+
+      const filtered = scholarships.filter(item => {
+        // Search filter
+        const matchesSearch = item.title.toLowerCase().includes(searchVal) || 
+                              item.univ.toLowerCase().includes(searchVal);
+        
+        // Country filter
+        const matchesCountry = selectedCountry === 'ALL' || item.country === selectedCountry;
+
+        // Degree filter
+        const matchesDegree = selectedDegree === 'ALL' || item.degrees.includes(selectedDegree);
+
+        // Funding type filter
+        const matchesFunding = (item.type === 'Fully Funded' && isFullyFundedChecked) || 
+                               (item.type === 'Partial Waiver' && isPartialChecked);
+
+        return matchesSearch && matchesCountry && matchesDegree && matchesFunding;
+      });
+
+      renderCards(filtered);
+    }
+
+    function renderCards(data) {
+      const grid = document.getElementById('resultsGrid');
+      const countLabel = document.getElementById('countLabel');
+      countLabel.textContent = `( Showing ${data.length} )`;
+
+      if (data.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full text-center py-12 bg-white rounded-2xl border border-slate-200">
+            <p class="text-slate-500 font-semibold text-lg">No matching scholarships found.</p>
+            <p class="text-xs text-slate-400 mt-1">Try broadening your search or resetting filters.</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = data.map(item => `
+        <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200/80 flex flex-col justify-between group">
+          <div>
+            <div class="flex justify-between items-start mb-4">
+              <span class="px-2.5 py-1 rounded-full text-xs font-bold ${item.type === 'Fully Funded' ? 'bg-emerald-100 text-emerald-800 border border-emerald-200' : 'bg-slate-100 text-slate-700 border border-slate-200'}">
+                ${item.type === 'Fully Funded' ? '✨ Fully Funded' : '🌗 Partial Waiver'}
+              </span>
+              <span class="text-xs font-bold text-amber-600 bg-amber-50 px-2 py-1 rounded">
+                ★ ${item.match} Match
+              </span>
+            </div>
+            <h4 class="font-bold text-lg text-slate-900 group-hover:text-emerald-600 transition-colors mb-1">
+              ${item.title}
+            </h4>
+            <p class="text-xs font-medium text-slate-500 mb-4">${item.univ}</p>
+
+            <div class="space-y-2 mb-6 text-xs text-slate-600">
+              <div class="flex items-center">
+                <span class="w-20 font-semibold text-slate-400">Coverage:</span>
+                <span class="font-bold text-slate-800">${item.coverage}</span>
+              </div>
+              <div class="flex items-center">
+                <span class="w-20 font-semibold text-slate-400">Degree:</span>
+                <span class="font-semibold text-slate-700">${item.degrees.join(', ')}</span>
+              </div>
+              <div class="flex items-center">
+                <span class="w-20 font-semibold text-slate-400">Deadline:</span>
+                <span class="font-bold text-rose-600">${item.deadline}</span>
+              </div>
+            </div>
+          </div>
+
+          <a href="${item.link}" target="_blank" class="w-full text-center py-2.5 rounded-xl font-semibold text-sm text-white gradient-success hover:opacity-95 shadow-md shadow-emerald-600/20 transition-all flex items-center justify-center space-x-2">
+            <span>Apply Directly</span>
+            <span>↗</span>
+          </a>
+        </div>
+      `).join('');
+    }
+
+    // Initial Load
+    applyFilters();
+  </script>
+</body>
+</html>
