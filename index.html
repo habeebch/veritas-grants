@@ -4,8 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Global Scholarship Portal | Veritas Grants</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  
+  <!-- Preconnect for Performance Optimization -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Deferred Tailwind CDN to eliminate Render-Blocking -->
+  <script src="https://cdn.tailwindcss.com" defer></script>
+
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
     .serif-title { font-family: 'Playfair Display', serif; }
@@ -20,7 +27,7 @@
   <header class="gradient-harvard text-white sticky top-0 z-50 shadow-md">
     <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
       <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center font-bold text-slate-900 text-xl shadow-lg shadow-amber-500/20">🎓</div>
+        <div class="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center font-bold text-slate-900 text-xl shadow-lg shadow-amber-500/20" aria-hidden="true">🎓</div>
         <div>
           <h1 class="font-extrabold text-lg tracking-tight">Veritas Grants</h1>
           <p class="text-xs text-rose-200/80">Open Academic Scholarship Index</p>
@@ -54,8 +61,17 @@
       <!-- Search Input -->
       <div class="mb-6">
         <div class="relative">
-          <input type="text" id="searchInput" oninput="applyFilters()" placeholder="Search by scholarship name, field of study, or university..." class="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm shadow-sm bg-white">
-          <svg class="w-5 h-5 absolute left-4 top-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          <input 
+            type="text" 
+            id="searchInput" 
+            oninput="applyFilters()" 
+            aria-label="Search scholarships by name, field of study, or university"
+            placeholder="Search by scholarship name, field of study, or university..." 
+            class="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm shadow-sm bg-white"
+          >
+          <svg class="w-5 h-5 absolute left-4 top-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
         </div>
       </div>
 
@@ -64,8 +80,13 @@
         
         <!-- Country Select -->
         <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Target Destination</label>
-          <select id="countryFilter" onchange="applyFilters()" class="w-full py-2.5 px-3 bg-white border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none font-medium text-slate-700">
+          <label for="countryFilter" class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Target Destination</label>
+          <select 
+            id="countryFilter" 
+            onchange="applyFilters()" 
+            aria-label="Filter by destination country"
+            class="w-full py-2.5 px-3 bg-white border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none font-medium text-slate-700"
+          >
             <option value="ALL">🌐 All Countries (Global)</option>
             <option value="USA">🇺🇸 United States</option>
             <option value="UK">🇬🇧 United Kingdom</option>
@@ -77,25 +98,25 @@
 
         <!-- Degree Level Buttons -->
         <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Degree Level</label>
-          <div class="flex flex-wrap gap-1.5" id="degreeGroup">
-            <button onclick="toggleDegree(this, 'ALL')" class="degree-btn active-degree px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white shadow-sm">All Levels</button>
-            <button onclick="toggleDegree(this, 'Bachelor')" class="degree-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200">Bachelor's</button>
-            <button onclick="toggleDegree(this, 'Master')" class="degree-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200">Master's</button>
-            <button onclick="toggleDegree(this, 'PhD')" class="degree-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200">PhD / Doctoral</button>
+          <span class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Degree Level</span>
+          <div class="flex flex-wrap gap-1.5" id="degreeGroup" role="group" aria-label="Filter by degree level">
+            <button type="button" onclick="toggleDegree(this, 'ALL')" aria-label="Filter all degree levels" class="degree-btn active-degree px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white shadow-sm">All Levels</button>
+            <button type="button" onclick="toggleDegree(this, 'Bachelor')" aria-label="Filter Bachelor degree" class="degree-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200">Bachelor's</button>
+            <button type="button" onclick="toggleDegree(this, 'Master')" aria-label="Filter Master degree" class="degree-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200">Master's</button>
+            <button type="button" onclick="toggleDegree(this, 'PhD')" aria-label="Filter PhD degree" class="degree-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200">PhD / Doctoral</button>
           </div>
         </div>
 
         <!-- Funding Type Checkboxes -->
         <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Funding Coverage</label>
+          <span class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Funding Coverage</span>
           <div class="flex items-center space-x-4 pt-1">
             <label class="inline-flex items-center text-sm font-semibold text-slate-700 cursor-pointer">
-              <input type="checkbox" id="fullyFundedCheck" onchange="applyFilters()" checked class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300">
+              <input type="checkbox" id="fullyFundedCheck" onchange="applyFilters()" checked aria-label="Show 100% Fully Funded scholarships" class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300">
               <span class="ml-2">100% Fully Funded</span>
             </label>
             <label class="inline-flex items-center text-sm font-semibold text-slate-600 cursor-pointer">
-              <input type="checkbox" id="partialCheck" onchange="applyFilters()" checked class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300">
+              <input type="checkbox" id="partialCheck" onchange="applyFilters()" checked aria-label="Show Partial Waiver scholarships" class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300">
               <span class="ml-2">Partial Waiver</span>
             </label>
           </div>
@@ -112,13 +133,12 @@
     </div>
 
     <!-- Dynamic Card Grid -->
-    <div id="resultsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    <div id="resultsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" aria-live="polite"></div>
 
   </main>
 
   <script>
-    // Database Array
-    const scholarships = [
+    let scholarships = [
       {
         id: 1,
         title: "Harvard Academy Scholars Program",
@@ -153,7 +173,7 @@
         type: "Fully Funded",
         deadline: "November 15, 2026",
         match: "95%",
-        link: "https://www me.daad.de/"
+        link: "https://www.daad.de/en/"
       },
       {
         id: 4,
@@ -217,6 +237,22 @@
       }
     ];
 
+    // Try fetching external JSON if available on GitHub Pages
+    async function loadDataset() {
+      try {
+        const res = await fetch('scholarships.json');
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            scholarships = data;
+          }
+        }
+      } catch (e) {
+        console.log('Using local embedded dataset');
+      }
+      applyFilters();
+    }
+
     let selectedDegree = "ALL";
 
     function toggleDegree(btn, degree) {
@@ -231,23 +267,17 @@
     }
 
     function applyFilters() {
-      const searchVal = document.getElementById('searchInput').value.toLowerCase();
+      const searchVal = document.getElementById('searchInput').value.toLowerCase().trim();
       const selectedCountry = document.getElementById('countryFilter').value;
       const isFullyFundedChecked = document.getElementById('fullyFundedCheck').checked;
       const isPartialChecked = document.getElementById('partialCheck').checked;
 
       const filtered = scholarships.filter(item => {
-        // Search filter
         const matchesSearch = item.title.toLowerCase().includes(searchVal) || 
                               item.univ.toLowerCase().includes(searchVal);
         
-        // Country filter
         const matchesCountry = selectedCountry === 'ALL' || item.country === selectedCountry;
-
-        // Degree filter
         const matchesDegree = selectedDegree === 'ALL' || item.degrees.includes(selectedDegree);
-
-        // Funding type filter
         const matchesFunding = (item.type === 'Fully Funded' && isFullyFundedChecked) || 
                                (item.type === 'Partial Waiver' && isPartialChecked);
 
@@ -304,16 +334,16 @@
             </div>
           </div>
 
-          <a href="${item.link}" target="_blank" class="w-full text-center py-2.5 rounded-xl font-semibold text-sm text-white gradient-success hover:opacity-95 shadow-md shadow-emerald-600/20 transition-all flex items-center justify-center space-x-2">
+          <a href="${item.link}" target="_blank" rel="noopener noreferrer" aria-label="Apply directly for ${item.title}" class="w-full text-center py-2.5 rounded-xl font-semibold text-sm text-white gradient-success hover:opacity-95 shadow-md shadow-emerald-600/20 transition-all flex items-center justify-center space-x-2">
             <span>Apply Directly</span>
-            <span>↗</span>
+            <span aria-hidden="true">↗</span>
           </a>
         </div>
       `).join('');
     }
 
-    // Initial Load
-    applyFilters();
+    // Initialize dataset and render UI
+    loadDataset();
   </script>
 </body>
 </html>
