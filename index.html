@@ -5,12 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Global Scholarship Portal | Veritas Grants</title>
   
-  <!-- Preconnect for Performance Optimization -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
-  <!-- Deferred Tailwind CDN to eliminate Render-Blocking -->
   <script src="https://cdn.tailwindcss.com" defer></script>
 
   <style>
@@ -138,7 +136,8 @@
   </main>
 
   <script>
-    let scholarships = [
+    // Self-Contained Built-in Dataset (No external files needed!)
+    const scholarships = [
       {
         id: 1,
         title: "Harvard Academy Scholars Program",
@@ -237,22 +236,6 @@
       }
     ];
 
-    // Try fetching external JSON if available on GitHub Pages
-    async function loadDataset() {
-      try {
-        const res = await fetch('scholarships.json');
-        if (res.ok) {
-          const data = await res.json();
-          if (Array.isArray(data) && data.length > 0) {
-            scholarships = data;
-          }
-        }
-      } catch (e) {
-        console.log('Using local embedded dataset');
-      }
-      applyFilters();
-    }
-
     let selectedDegree = "ALL";
 
     function toggleDegree(btn, degree) {
@@ -342,8 +325,8 @@
       `).join('');
     }
 
-    // Initialize dataset and render UI
-    loadDataset();
+    // Initial Render on Page Load
+    applyFilters();
   </script>
 </body>
 </html>
